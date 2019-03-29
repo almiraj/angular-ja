@@ -822,14 +822,14 @@ Notice that the corresponding name in the crisis list does _not_ change.
 
 
 
-Unlike *Hero Detail*, which updates as you type,
-*Crisis Detail* changes are temporary until you either save or discard them by pressing the "Save" or "Cancel" buttons.
-Both buttons navigate back to the *Crisis Center* and its list of crises.
+タイピングした時点で変更された *Hero Detail* とは違い、
+*Crisis Detail* における変更は "Save" か "Cancel" のボタンを押して保存または破棄するまで仮の状態です。
+どちらのボタンも *Crisis Center* に戻って危機リストを表示します。
 
-***Do not click either button yet***.
-Click the browser back button or the "Heroes" link instead.
+***まだどちらのボタンもクリックしないでください***。
+"Heroes" リンクの代わりにブラウザの戻るボタンをクリックしてください。
 
-Up pops a dialog box.
+ダイアログがポップアップ表示されます。
 
 
 <figure>
@@ -838,15 +838,14 @@ Up pops a dialog box.
 
 
 
-You can say "OK" and lose your changes or click "Cancel" and continue editing.
+"OK" を押せば変更は破棄されますし、"Cancel" を押せば編集を続けられます。
+この振る舞いの裏にはルーターの `CanDeactivate` が関わっています。
+このガードが、現在のviewから離れる前にユーザーの権限を取り消したり尋ねたりするチャンスを与えてくれます。
 
-Behind this behavior is the router's `CanDeactivate` guard.
-The guard gives you a chance to clean-up or ask the user's permission before navigating away from the current view.
+`Admin` と `Login` のボタンは、このガイドで後述する他のルーター機能の説明に使われます。
+今はこの短い紹介に留めておきます。
 
-The `Admin` and `Login` buttons illustrate other router capabilities to be covered later in the guide.
-This short introduction will do for now.
-
-Proceed to the first application milestone.
+最初のアプリケーションマイルストーンを始めましょう。
 
 {@a getting-started}
 
