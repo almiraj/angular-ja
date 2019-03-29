@@ -738,44 +738,43 @@ URLがブラウザのアドレスバーから直接渡されることもある�
 {@a sample-app-intro}
 
 
-## The sample application
+## サンプルアプリケーション
 
-This guide describes development of a multi-page routed sample application.
-Along the way, it highlights design decisions and describes key features of the router such as:
+このガイドでは、複数ページをルーティングしたサンプルアプリケーションの解説を行います。
+その中で、設計方針に焦点を当てるとともに、次のようなルーターの主な機能を紹介していきます。
 
-* Organizing the application features into modules.
-* Navigating to a component (*Heroes* link to "Heroes List").
-* Including a route parameter (passing the Hero `id` while routing to the "Hero Detail").
-* Child routes (the *Crisis Center* has its own routes).
-* The `CanActivate` guard (checking route access).
-* The `CanActivateChild` guard (checking child route access).
-* The `CanDeactivate` guard (ask permission to discard unsaved changes).
-* The `Resolve` guard (pre-fetching route data).
-* Lazy loading feature modules.
-* The `CanLoad` guard (check before loading feature module assets).
+* アプリケーションの機能をモジュールに編成
+* コンポーネントへの遷移 (*Heroes* を "Heroes List" にリンクさせる)
+* ルートパラメーターの利用 (ルーティングを通してヒーローの `id` を "Hero Detail" に渡す)
+* 子ルート (*Crisis Center* は独自のルートを持つ)
+* `CanActivate` ガード (ルートへのアクセスをチェックする)
+* `CanActivateChild` ガード (子ルートへのアクセスをチェックする)
+* `CanDeactivate` ガード (保存されていない変更を破棄する権限があるか確認する)
+* `Resolve` ガード (ルートデータを遷移前に取得する)
+* 機能モジュールの遅延ローディング
+* `CanLoad` ガード (機能モジュールの資源がロードされる前にチェックする)
 
-The guide proceeds as a sequence of milestones as if you were building the app step-by-step.
-But, it is not a tutorial and it glosses over details of Angular application construction
-that are more thoroughly covered elsewhere in the documentation.
+一つ一つアプリケーションを組み立てていくかのように、このガイドはマイルストーンの順序で進みます。
+ただし、これはチュートリアルではありませんし、他のドキュメトで既にカバーされているような
+Angularアプリケーションの構造の詳細について、深くは扱いません。
 
-The full source for the final version of the app can be seen and downloaded from the <live-example></live-example>.
+アプリケーションの完成版のソースコードは <live-example></live-example> からダウンロードして見ることができます。
 
 
-### The sample application in action
+### 実践的なサンプルアプリケーション
 
-Imagine an application that helps the _Hero Employment Agency_ run its business.
-Heroes need work and the agency finds crises for them to solve.
+_ヒーロー人材紹介所_ がビジネスを始めることを手助けするようなアプリケーションを想像してください。
+ヒーローたちは職を求めていて、紹介所は彼らに解決してもらいたい危機を見つけます。
 
-The application has three main feature areas:
+アプリケーションは主に3つのエリアに分かれます。
 
-1. A *Crisis Center* for maintaining the list of crises for assignment to heroes.
-1. A *Heroes* area for maintaining the list of heroes employed by the agency.
-1. An *Admin* area to manage the list of crises and heroes.
+1. ヒーローたちを斡旋すべき危機のリストをメンテナンスする *Crisis Center* エリア
+1. 紹介所が雇っているヒーローたちのリストをメンテナンスする *Heroes* エリア
+1. 危機とヒーローたちのリストを管理する *Admin* エリア
 
-Try it by clicking on this <live-example title="Hero Employment Agency Live Example">live example link</live-example>.
+これをクリックして試してみてください。 <live-example title="Hero Employment Agency Live Example">live example link</live-example>
 
-Once the app warms up, you'll see a row of navigation buttons
-and the *Heroes* view with its list of heroes.
+アプリケーションの起動が済むと、画面遷移ボタンとヒーローたちのリストが *Heroes* viewに表示されます。
 
 
 <figure>
@@ -784,7 +783,7 @@ and the *Heroes* view with its list of heroes.
 
 
 
-Select one hero and the app takes you to a hero editing screen.
+ヒーローを1人選択すると、ヒーローを編集する画面が表示されます。
 
 <figure>
   <img src='generated/images/guide/router/hero-detail.png' alt="Crisis Center Detail">
@@ -792,15 +791,15 @@ Select one hero and the app takes you to a hero editing screen.
 
 
 
-Alter the name.
-Click the "Back" button and the app returns to the heroes list which displays the changed hero name.
-Notice that the name change took effect immediately.
+名前を変更してみてください。
+"Back" ボタンをクリックすると、ヒーローのリストが再度表示され、ヒーローの名前は変更されています。
+名前の変更が即座に反映されていることに気付くはずです。
 
-Had you clicked the browser's back button instead of the "Back" button,
-the app would have returned you to the heroes list as well.
-Angular app navigation updates the browser history as normal web navigation does.
+たとえ "Back" ボタンではなくブラウザの戻るボタンをクリックしても、
+アプリケーションは同様のヒーローのリストを返します。
+Angularアプリケーションの遷移は、普通のWEB遷移と同じようにブラウザの履歴を更新します。
 
-Now click the *Crisis Center* link for a list of ongoing crises.
+次に *Crisis Center* リンクをクリックして、発生している危機のリストを見てみましょう。
 
 
 <figure>
@@ -809,11 +808,11 @@ Now click the *Crisis Center* link for a list of ongoing crises.
 
 
 
-Select a crisis and the application takes you to a crisis editing screen.
-The _Crisis Detail_ appears in a child component on the same page, beneath the list.
+危機を選択すると、危機を編集する画面が表示されます。
+この _危機詳細_ は危機リストの真下に表示され、リストのページの子コンポーネントに含まれています。
 
-Alter the name of a crisis.
-Notice that the corresponding name in the crisis list does _not_ change.
+危機の名前を変更してみてください。
+名前を変更しても、リストの名前が変更 *されていない* ことに気付くはずです。
 
 
 <figure>
@@ -849,9 +848,9 @@ Notice that the corresponding name in the crisis list does _not_ change.
 
 {@a getting-started}
 
-## Milestone 1: Getting started
+## マイルストーン1: はじまり
 
-Begin with a simple version of the app that navigates between two empty views.
+2つの空のview間を遷移する、シンプルなアプリケーションから始めます。
 
 
 <figure>
@@ -860,15 +859,15 @@ Begin with a simple version of the app that navigates between two empty views.
 
 {@a import}
 
-Generate a sample application to follow the walkthrough.
+次の手引きに従ってサンプルアプリケーションを生成してください。
 
 <code-example language="none" class="code-shell">
   ng new angular-router-sample
 </code-example>
 
-### Define Routes
+### ルートの定義
 
-A router must be configured with a list of route definitions.
+ルーターは、ルート定義のリストが設定されている必要があります。
 
 Each definition translates to a [Route](api/router/Route) object which has two things: a
 `path`, the URL path segment for this route; and a
