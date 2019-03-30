@@ -868,22 +868,21 @@ Angularアプリケーションの遷移は、普通のWEB遷移と同じよう�
 ### ルートの定義
 
 ルーターは、ルート定義のリストが設定されている必要があります。
+各々の定義は [Route](api/router/Route) オブジェクトに変換され、2つの要素を持ちます。
+1つは `path` でこのルートのURLパスの断片を表わし、
+もう1つは `component` でこのルートに関連するコンポーネントを表します。
 
-Each definition translates to a [Route](api/router/Route) object which has two things: a
-`path`, the URL path segment for this route; and a
-`component`, the component associated with this route.
+ブラウザのURLが変わったときや、アプリケーションのコードがルートパスに沿ってルーターに画面遷移を指示したときに、
+ルーターは自身に登録されている定義を利用します。
 
-The router draws upon its registry of definitions when the browser URL changes
-or when application code tells the router to navigate along a route path.
+簡単に言うと、最初のルートはこういうことです。
 
-In simpler terms, you might say this of the first route:
+* ブラウザのURLが変わってパスの断面 `/crisis-center` にマッチしたとき、
+ルーターは `CrisisListComponent` インスタンスを起動してviewに表示します。
 
-* When the browser's location URL changes to match the path segment `/crisis-center`, then
-the router activates an instance of the `CrisisListComponent` and displays its view.
-
-* When the application requests navigation to the path `/crisis-center`, the router
-activates an instance of `CrisisListComponent`, displays its view, and updates the
-browser's address location and history with the URL for that path.
+* アプリケーションが `/crisis-center` パスへの遷移を要求したとき、
+ルーターは `CrisisListComponent` インスタンスを起動してviewに表示し、
+ブラウザのアドレスと履歴を該当のURLで更新します。
 
 The first configuration defines an array of two routes with simple paths leading to the
 `CrisisListComponent` and `HeroListComponent`. Generate the `CrisisList` and `HeroList` components.
