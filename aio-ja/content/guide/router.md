@@ -875,7 +875,7 @@ Angularアプリケーションの遷移は、普通のWEB遷移と同じよう�
 ブラウザのURLが変わったときや、アプリケーションのコードがルートパスに沿ってルーターに画面遷移を指示したときに、
 ルーターは自身に登録されている定義を利用します。
 
-簡単に言うと、最初のルートはこういうことです。
+簡単に言うと、最初のルートは次のようなものです。
 
 * ブラウザのURLが変わってパスの断面 `/crisis-center` にマッチしたとき、
 ルーターは `CrisisListComponent` インスタンスを起動してviewに表示します。
@@ -884,8 +884,8 @@ Angularアプリケーションの遷移は、普通のWEB遷移と同じよう�
 ルーターは `CrisisListComponent` インスタンスを起動してviewに表示し、
 ブラウザのアドレスと履歴を該当のURLで更新します。
 
-The first configuration defines an array of two routes with simple paths leading to the
-`CrisisListComponent` and `HeroListComponent`. Generate the `CrisisList` and `HeroList` components.
+最初の設定は `CrisisListComponent` と `HeroListComponent` へのシンプルなパスを持った2つのルート定義です。
+`CrisisList` と `HeroList` のコンポートを生成してください。
 
 <code-example language="none" class="code-shell">
   ng generate component crisis-list
@@ -895,7 +895,7 @@ The first configuration defines an array of two routes with simple paths leading
   ng generate component hero-list
 </code-example>
 
-Replace the contents of each component with the sample HTML below.
+各々のコンポーネントを次のサンプルHTMLに置き換えてください。
 
 <code-tabs>
 
@@ -909,9 +909,12 @@ Replace the contents of each component with the sample HTML below.
 
 </code-tabs>
 
-### Register Router and Routes
+### ルーターとルートの設定
 
-In order to use the Router, you must first register the `RouterModule` from the `@angular/router` package. Define an array of routes, `appRoutes`, and pass them to the `RouterModule.forRoot()` method. It returns a module, containing the configured `Router` service provider, plus other providers that the routing library requires. Once the application is bootstrapped, the `Router` performs the initial navigation based on the current browser URL.
+ルーターを使うためには、まず `@angular/router` パッケージから `RouterModule` を登録する必要があります。
+ルートの配列(`appRoutes`)を定義したら、`RouterModule.forRoot()` メソッドにそれを渡します。
+そうすると設定された `Router` サービスやルーティングライブラリーが必要とするその他のプロバイダーを含んだモジュールが返ってきます。
+アプリケーションが立ち上がるとすぐに、`Router` は現在のブラウザのURLを元に初回遷移を行います。
 
 <div class="alert is-important">
 
